@@ -26,11 +26,7 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 ![Tech4Biz Banner](https://drive.google.com/uc?export=view&id=1RSt8sdiBjilwrBwVR8dWO-otkE02KHvJ)
