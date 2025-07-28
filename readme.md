@@ -1,5 +1,20 @@
 # Spurrin Backend - Architecture Documentation
 
+<style>
+.mermaid-toolbar,
+.mermaid-zoom-controls,
+.mermaid svg .zoom-controls,
+.mermaid .toolbar,
+.mermaid .zoom-in,
+.mermaid .zoom-out,
+.mermaid .zoom-reset,
+.mermaid .pan-zoom-controls,
+.mermaid .controls {
+    display: none !important;
+    visibility: hidden !important;
+}
+</style>
+
 ## Table of Contents
 1. [System Overview](#system-overview)
 2. [High-Level Architecture](#high-level-architecture)
