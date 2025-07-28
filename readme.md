@@ -2,18 +2,6 @@
 
 # Spurrin Backend - Architecture Documentation
 
-## Table of Contents
-1. [System Overview](#system-overview)
-2. [High-Level Architecture](#high-level-architecture)
-3. [Component Architecture](#component-architecture)
-4. [Data Flow Architecture](#data-flow-architecture)
-5. [Technology Stack](#technology-stack)
-6. [Database Architecture](#database-architecture)
-7. [Security Architecture](#security-architecture)
-8. [Deployment Architecture](#deployment-architecture)
-
----
-
 ## System Overview
 
 Spurrin is a document processing and management system with real-time communication capabilities through a microservices architecture.
