@@ -1,20 +1,21 @@
 ![Tech4Biz Banner](https://drive.google.com/uc?export=view&id=1RSt8sdiBjilwrBwVR8dWO-otkE02KHvJ)
 
 <style>
-.mermaid-toolbar,
-.mermaid-zoom-controls,
-.mermaid svg .zoom-controls,
-.mermaid .toolbar,
-.mermaid .zoom-in,
-.mermaid .zoom-out,
-.mermaid .zoom-reset,
-.mermaid .pan-zoom-controls,
-.mermaid .controls,
-.mermaid .pan-zoom,
-.mermaid .zoom,
-.mermaid .navigation-controls {
-    display: none !important;
-    visibility: hidden !important;
+@media print {
+  @page {
+    @bottom-center {
+      content: url('https://drive.google.com/uc?export=view&id=1meOD2Mga47ymtO1ccuaGR8OusuvpxLbW');
+    }
+  }
+}
+
+.footer-image {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: -1;
 }
 </style>
 
