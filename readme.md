@@ -50,6 +50,8 @@ Spurrin is a document processing and management system with real-time communicat
 ---
 
 ## High-Level Architecture
+<br>
+<br>
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#f3f4f6', 'primaryTextColor': '#1f2937', 'primaryBorderColor': '#d1d5db', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
@@ -94,6 +96,8 @@ graph TB
 
 ---
 
+<br>
+<br>
 ## Component Architecture
 
 ### 1. Primary API Service
