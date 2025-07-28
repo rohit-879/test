@@ -1,4 +1,4 @@
-# SpurrinAI Backend - Architecture Documentation
+# Spurrin Backend - Architecture Documentation
 
 ## Table of Contents
 1. [System Overview](#system-overview)
@@ -14,14 +14,13 @@
 
 ## System Overview
 
-SpurrinAI is an intelligent document processing and question-answering system that leverages RAG (Retrieval Augmented Generation) architecture. The system processes medical documents, creates vector embeddings, and provides real-time AI-powered responses through a hybrid microservices architecture.
+Spurrin is a document processing and management system with real-time communication capabilities through a microservices architecture.
 
 ### Key Capabilities
-- **Document Processing**: PDF ingestion and intelligent chunking
-- **Vector Search**: ChromaDB-based semantic search with Redis caching
-- **Real-time Chat**: WebSocket-based communication with AI responses
+- **Document Processing**: PDF ingestion and processing
+- **Real-time Chat**: WebSocket-based communication
 - **Multi-tenancy**: Hospital-based data isolation
-- **AI Integration**: Natural language processing with external AI services
+- **File Management**: Document storage and retrieval
 
 ---
 
@@ -41,19 +40,16 @@ graph TB
     
     subgraph "Application Layer"
         API[REST API Service]
-        AI[AI Processing Service]
         WS[WebSocket Server]
     end
     
     subgraph "Data Layer"
         MYSQL[(MySQL Database)]
         REDIS[(Redis Cache)]
-        CHROMA[(ChromaDB Vector Store)]
         FILES[File Storage]
     end
     
     subgraph "External Services"
-        OPENAI[OpenAI API]
         EMAIL[Email Service]
     end
     
@@ -62,14 +58,10 @@ graph TB
     LB --> NGINX
     NGINX --> API
     NGINX --> WS
-    API --> AI
-    WS --> AI
     API --> MYSQL
     API --> REDIS
-    AI --> MYSQL
-    AI --> REDIS
-    AI --> CHROMA
-    AI --> OPENAI
+    WS --> MYSQL
+    WS --> REDIS
     API --> EMAIL
     API --> FILES
 ```
@@ -135,51 +127,7 @@ graph TB
     SERV --> DB
 ```
 
-### 2. AI Processing Service (NLP/RAG Engine)
-
-```mermaid
-graph TB
-    subgraph "AI Processing Application"
-        AI_APP[AI Service Entry Point]
-        
-        subgraph "NLP Processing"
-            NLP[Natural Language Processing]
-            TEXT[Text Processing]
-            EMBED[Embedding Generation]
-        end
-        
-        subgraph "Vector Operations"
-            CHROMA[ChromaDB Interface]
-            VECTOR[Vector Store Manager]
-            SEARCH[Semantic Search]
-        end
-        
-        subgraph "Document Processing"
-            PDF[PDF Loader]
-            CHUNK[Text Splitter]
-            ICD[ICD Code Processor]
-        end
-        
-        subgraph "AI Integration"
-            OPENAI[OpenAI Client]
-            CHAIN[LangChain RAG]
-            PROMPT[Prompt Templates]
-        end
-        
-        subgraph "Caching Layer"
-            REDIS_AI[Redis Cache]
-            BINARY[Binary Cache]
-        end
-    end
-    
-    AI_APP --> NLP
-    AI_APP --> VECTOR
-    AI_APP --> PDF
-    AI_APP --> OPENAI
-    AI_APP --> REDIS_AI
-```
-
-### 3. WebSocket Communication Layer
+### 2. WebSocket Communication Layer
 
 ```mermaid
 graph TB
@@ -294,6 +242,15 @@ sequenceDiagram
     NodeAPI->>MySQL: Check Token Validity
     MySQL-->>NodeAPI: Token Status
     NodeAPI-->>Client: Authorized Response
+    
+    Note over Client,NodeAPI: Token refresh flow
+    Client->>NodeAPI: Refresh Token Request
+    NodeAPI->>MySQL: Validate Refresh Token
+    MySQL-->>NodeAPI: Refresh Token Status
+    NodeAPI->>JWT: Generate New Access Token
+    JWT-->>NodeAPI: New Access Token
+    NodeAPI->>MySQL: Update Token Store
+    NodeAPI-->>Client: New Access Token Response
 ```
 
 ---
