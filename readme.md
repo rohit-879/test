@@ -335,57 +335,230 @@ External APIs:
 
 ```mermaid
 erDiagram
+    %% Core Hospital Management
     HOSPITALS ||--o{ USERS : manages
     HOSPITALS ||--o{ APP_USERS : serves
+    HOSPITALS ||--o{ DEPARTMENTS : contains
     HOSPITALS ||--o{ DOCUMENTS : owns
+    HOSPITALS ||--o{ AUDIT_LOGS : tracks
+    
+    %% Department Structure
+    DEPARTMENTS ||--o{ USERS : employs
+    DEPARTMENTS ||--o{ DOCUMENT_CATEGORIES : organizes
+    
+    %% User Management & Authentication
     USERS ||--o{ DOCUMENTS : uploads
+    USERS ||--o{ USER_SESSIONS : authenticates
+    USERS ||--o{ USER_PERMISSIONS : has
+    APP_USERS ||--o{ CHAT_SESSIONS : initiates
     APP_USERS ||--o{ INTERACTION_LOGS : creates
-    DOCUMENTS ||--o{ DOCUMENT_CHUNKS : contains
+    
+    %% Document Management System
+    DOCUMENTS ||--o{ DOCUMENT_VERSIONS : versioned
+    DOCUMENTS ||--o{ DOCUMENT_SHARES : shared
+    DOCUMENTS ||--o{ DOCUMENT_TAGS : tagged
+    DOCUMENTS }o--|| DOCUMENT_CATEGORIES : categorized
+    DOCUMENT_VERSIONS ||--o{ DOCUMENT_CHUNKS : contains
+    
+    %% Communication & Interaction
+    CHAT_SESSIONS ||--o{ INTERACTION_LOGS : contains
+    CHAT_SESSIONS ||--o{ SESSION_PARTICIPANTS : includes
+    
+    %% Security & Audit
+    USERS ||--o{ AUDIT_LOGS : performs
+    DOCUMENTS ||--o{ ACCESS_LOGS : accessed
     
     HOSPITALS {
         int id PK
-        string hospital_code UK
-        string name
-        string address
+        string hospital_code UK "Unique identifier"
+        string name "Hospital name"
+        string address "Physical address"
+        string contact_email
+        string phone_number
+        enum status "ACTIVE, INACTIVE, SUSPENDED"
+        json settings "Hospital-specific configurations"
         timestamp created_at
         timestamp updated_at
+    }
+    
+    DEPARTMENTS {
+        int id PK
+        int hospital_id FK
+        string name "Department name"
+        string code UK "Department code"
+        string description
+        int head_user_id FK "Department head"
+        enum status "ACTIVE, INACTIVE"
+        timestamp created_at
     }
     
     USERS {
         int id PK
         int hospital_id FK
+        int department_id FK
         string email UK
         string password_hash
-        string role
+        string first_name
+        string last_name
+        string employee_id UK
+        enum role "ADMIN, DOCTOR, NURSE, STAFF"
+        enum status "ACTIVE, INACTIVE, SUSPENDED"
+        timestamp last_login
+        timestamp password_changed_at
         timestamp created_at
+    }
+    
+    USER_PERMISSIONS {
+        int id PK
+        int user_id FK
+        string permission_name
+        string resource_type
+        json permission_data
+        timestamp granted_at
+        timestamp expires_at
+    }
+    
+    USER_SESSIONS {
+        int id PK
+        int user_id FK
+        string session_token UK
+        string refresh_token UK
+        string ip_address
+        string user_agent
+        timestamp expires_at
+        timestamp created_at
+        timestamp last_activity
     }
     
     APP_USERS {
         int id PK
         string hospital_code FK
+        string device_id UK "Unique device identifier"
         string access_token
         string refresh_token
+        json device_info "Device metadata"
         timestamp token_expires_at
+        timestamp last_active
+        timestamp created_at
+    }
+    
+    DOCUMENT_CATEGORIES {
+        int id PK
+        int department_id FK
+        string name
+        string description
+        string color_code "UI color coding"
+        json metadata "Category-specific settings"
         timestamp created_at
     }
     
     DOCUMENTS {
         int id PK
         int hospital_id FK
+        int category_id FK
         int uploaded_by FK
+        string title
         string filename
         string file_path
-        string status
+        string mime_type
+        bigint file_size
+        string checksum "File integrity check"
+        enum status "PENDING, PROCESSING, COMPLETED, FAILED"
+        enum visibility "PUBLIC, PRIVATE, DEPARTMENT"
+        json metadata "Document-specific data"
         timestamp created_at
+        timestamp updated_at
+    }
+    
+    DOCUMENT_VERSIONS {
+        int id PK
+        int document_id FK
+        int version_number
+        string file_path
+        string changes_summary
+        int created_by FK
+        timestamp created_at
+    }
+    
+    DOCUMENT_SHARES {
+        int id PK
+        int document_id FK
+        int shared_by FK
+        int shared_with FK
+        enum permission "READ, WRITE, ADMIN"
+        timestamp expires_at
+        timestamp created_at
+    }
+    
+    DOCUMENT_TAGS {
+        int id PK
+        int document_id FK
+        string tag_name
+        string tag_value
+        timestamp created_at
+    }
+    
+    DOCUMENT_CHUNKS {
+        int id PK
+        int document_version_id FK
+        int chunk_index
+        text content
+        json metadata "Chunk-specific data"
+        timestamp created_at
+    }
+    
+    CHAT_SESSIONS {
+        int id PK
+        int app_user_id FK
+        string session_id UK
+        string session_name
+        enum status "ACTIVE, COMPLETED, ARCHIVED"
+        json context "Session context data"
+        timestamp started_at
+        timestamp ended_at
+    }
+    
+    SESSION_PARTICIPANTS {
+        int id PK
+        int session_id FK
+        int user_id FK
+        enum role "INITIATOR, PARTICIPANT, OBSERVER"
+        timestamp joined_at
+        timestamp left_at
     }
     
     INTERACTION_LOGS {
         int id PK
-        string session_id
-        string hospital_code
-        text query
-        text response
+        int session_id FK
         int app_user_id FK
+        string hospital_code
+        enum interaction_type "QUERY, RESPONSE, SYSTEM"
+        text content
+        json metadata "Interaction metadata"
+        string ip_address
+        timestamp created_at
+    }
+    
+    ACCESS_LOGS {
+        int id PK
+        int document_id FK
+        int user_id FK
+        enum action "VIEW, DOWNLOAD, EDIT, DELETE"
+        string ip_address
+        string user_agent
+        timestamp accessed_at
+    }
+    
+    AUDIT_LOGS {
+        int id PK
+        int hospital_id FK
+        int user_id FK
+        string entity_type "Table name"
+        int entity_id "Record ID"
+        enum action "CREATE, UPDATE, DELETE"
+        json old_values "Previous state"
+        json new_values "New state"
+        string ip_address
         timestamp created_at
     }
 ```
