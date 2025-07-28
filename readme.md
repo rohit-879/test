@@ -201,13 +201,10 @@ sequenceDiagram
     MySQL-->>NodeAPI: User Validated
     NodeAPI-->>WebSocket: Authentication Success
     
-    Client->>WebSocket: Send Query
-    WebSocket->>AIService: Process Question
-    AIService->>ChromaDB: Semantic Search
-    ChromaDB-->>AIService: Relevant Documents
-    AIService->>OpenAI: Generate Answer
-    OpenAI-->>AIService: AI Response
-    AIService-->>WebSocket: Formatted Answer
+    Client->>WebSocket: Send Message
+    WebSocket->>NodeAPI: Process Message
+    NodeAPI->>MySQL: Store Message
+    NodeAPI-->>WebSocket: Message Processed
     WebSocket->>MySQL: Log Interaction
     WebSocket-->>Client: Send Response
 ```
@@ -215,6 +212,7 @@ sequenceDiagram
 ### 3. User Authentication Flow
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 sequenceDiagram
     participant Client
     participant NodeAPI
@@ -328,6 +326,7 @@ External APIs:
 ### Entity Relationship Overview
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 erDiagram
     %% Core Hospital Management
     HOSPITALS ||--o{ USERS : manages
@@ -582,6 +581,7 @@ Retry Logic:
 ### Authentication & Authorization
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 graph TB
     subgraph "Authentication Layer"
         JWT[JWT Token System]
