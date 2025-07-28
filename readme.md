@@ -1,3 +1,5 @@
+![Tech4Biz Banner](https://tech4biz.io/assets/images/banner.png)
+
 # Spurrin Backend - Architecture Documentation
 
 ## Table of Contents
