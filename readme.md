@@ -1,5 +1,23 @@
 ![Tech4Biz Banner](https://drive.google.com/uc?export=view&id=1RSt8sdiBjilwrBwVR8dWO-otkE02KHvJ)
 
+<style>
+.mermaid-toolbar,
+.mermaid-zoom-controls,
+.mermaid svg .zoom-controls,
+.mermaid .toolbar,
+.mermaid .zoom-in,
+.mermaid .zoom-out,
+.mermaid .zoom-reset,
+.mermaid .pan-zoom-controls,
+.mermaid .controls,
+.mermaid .pan-zoom,
+.mermaid .zoom,
+.mermaid .navigation-controls {
+    display: none !important;
+    visibility: hidden !important;
+}
+</style>
+
 # Spurrin Backend - Architecture Documentation
 
 ## System Overview
