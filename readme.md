@@ -74,6 +74,7 @@ graph TB
 ### 1. Primary API Service
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 graph TB
     subgraph "API Application"
         APP[Main Application Entry Point]
@@ -131,6 +132,7 @@ graph TB
 ### 2. WebSocket Communication Layer
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 graph TB
     subgraph "WebSocket Server"
         WS_SERVER[WebSocket Server :40510]
@@ -167,39 +169,30 @@ graph TB
 ### 1. Document Processing Flow
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 sequenceDiagram
     participant Client
     participant NodeAPI
-    participant PythonAI
     participant MySQL
-    participant ChromaDB
     participant Redis
-    participant OpenAI
     
     Client->>NodeAPI: Upload Document
     NodeAPI->>MySQL: Store Document Metadata
-    NodeAPI->>AIService: Process Document Request
-    AIService->>AIService: Extract PDF Content
-    AIService->>AIService: Split into Chunks
-    AIService->>OpenAI: Generate Embeddings
-    OpenAI-->>AIService: Return Embeddings
-    AIService->>ChromaDB: Store Vector Embeddings
-    AIService->>MySQL: Update Processing Status
-    AIService->>Redis: Cache Vector Store
-    AIService-->>NodeAPI: Processing Complete
+    NodeAPI->>NodeAPI: Extract PDF Content
+    NodeAPI->>NodeAPI: Process Document
+    NodeAPI->>MySQL: Update Processing Status
+    NodeAPI->>Redis: Cache Document Data
     NodeAPI-->>Client: Success Response
 ```
 
 ### 2. Real-time Chat Flow
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor': '#4f46e5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#3730a3', 'lineColor': '#6b7280', 'secondaryColor': '#e5e7eb', 'tertiaryColor': '#f3f4f6'}}}%%
 sequenceDiagram
     participant Client
     participant WebSocket
     participant NodeAPI
-    participant PythonAI
-    participant ChromaDB
-    participant OpenAI
     participant MySQL
     
     Client->>WebSocket: Connect with JWT
