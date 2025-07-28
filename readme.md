@@ -18,6 +18,8 @@
 }
 </style>
 
+<div style="page-break-after: always;"></div>
+
 # Spurrin Backend - Architecture Documentation
 
 ## System Overview
