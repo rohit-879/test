@@ -40,12 +40,11 @@
 
 ## System Overview
 
-Spurrin is a document processing and management system with real-time communication capabilities through a microservices architecture.
+Spurrin is a document processing and management system with real-time communication capabilities through a this architecture.
 
 ### Key Capabilities
 - **Document Processing**: PDF ingestion and processing
 - **Real-time Chat**: WebSocket-based communication
-- **Multi-tenancy**: Hospital-based data isolation
 - **File Management**: Document storage and retrieval
 
 ---
@@ -283,7 +282,6 @@ Primary API Server:
   Features: Middleware Pipeline, Route Handling
   
 AI Processing Service:
-  Architecture: Microservice
   Pattern: Service-Oriented Architecture
   Features: NLP Processing, Vector Operations
   
@@ -801,4 +799,8 @@ Data Scaling:
 
 ---
 
-*This documentation provides a comprehensive overview of the SpurrinAI backend architecture. For implementation details, refer to the source code and individual component documentation.*
+*This documentation provides a comprehensive overview of the Spurrin backend architecture. For implementation details, refer to the source code and individual component documentation.*
+
+---
+
+![Footer Image](https://drive.google.com/uc?export=view&id=1meOD2Mga47ymtO1ccuaGR8OusuvpxLbW)
