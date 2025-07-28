@@ -49,6 +49,17 @@ Spurrin is a document processing and management system with real-time communicat
 
 ---
 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## High-Level Architecture
 <br>
 
